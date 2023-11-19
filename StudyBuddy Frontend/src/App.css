@@ -64,6 +64,11 @@ thead {
   z-index: 10;
 }
 
+#material-link {
+  max-width: 30ch;
+  overflow-x: auto;
+}
+
 thead tr {
   background-color: rgba(180, 180, 180, 0.3);
 }

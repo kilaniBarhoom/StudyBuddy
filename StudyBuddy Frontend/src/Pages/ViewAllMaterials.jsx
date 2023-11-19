@@ -241,7 +241,11 @@ const ViewAllMaterials = () => {
                     <tr key={material._id}>
                       <td>{material.name}</td>
                       <td>
-                        <a href={material.link} target="_blank">
+                        <a
+                          href={material.link}
+                          id="material-link"
+                          target="_blank"
+                        >
                           {material.link}
                         </a>
                       </td>

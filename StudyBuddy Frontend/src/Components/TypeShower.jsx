@@ -232,7 +232,7 @@ const TypeShower = () => {
               return (
                 <tr key={material._id}>
                   <td>{material.name}</td>
-                  <td>
+                  <td id="material-link">
                     <a href={material.link} target="_blank">
                       {material.link}
                     </a>
