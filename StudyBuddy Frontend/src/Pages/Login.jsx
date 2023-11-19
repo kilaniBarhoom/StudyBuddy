@@ -108,7 +108,6 @@ export default function Login() {
           </form>
         </Stack>
       </Box>
-      {/* </FadeIn> */}
     </motion.div>
   );
 }
