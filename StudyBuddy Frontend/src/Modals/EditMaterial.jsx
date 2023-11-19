@@ -86,9 +86,14 @@ export default function EditMaterial() {
   const { materialId } = useParams();
   React.useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/materials/${materialId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get(
+        `${import.meta.env.VITE_API_URL}${
+          import.meta.env.VITE_ALL_MATERIALS_PATH
+        }/${materialId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
       .then((res) => {
         setMaterial(res.data.material);
       })

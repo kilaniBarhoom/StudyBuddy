@@ -35,23 +35,30 @@ const ViewAllMaterials = () => {
 
   const handleDelete = (id) => {
     axios
-      .delete(`http://localhost:3000/api/materials/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .delete(
+        `${import.meta.env.VITE_API_URL}${
+          import.meta.env.VITE_ALL_MATERIALS_PATH
+        }/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         toast.success(res.data.message);
       })
       .catch((err) => {
-        console.log(err);
+        toast.error(err.response.data.message);
       });
   };
 
   const handleAddRating = (id) => {
     axios
       .post(
-        `http://localhost:3000/api/materials/${id}/ratings`,
+        `${import.meta.env.VITE_API_URL}${
+          import.meta.env.VITE_ALL_MATERIALS_PATH
+        }/${id}/ratings`,
         {
           rating: value,
         },

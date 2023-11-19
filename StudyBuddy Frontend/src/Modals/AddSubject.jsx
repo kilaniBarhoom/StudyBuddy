@@ -9,6 +9,7 @@ import {
   Autocomplete,
   TextField,
   Checkbox,
+  CircularProgress,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -21,8 +22,7 @@ import Subjects from "../Constants/Data";
 import Add from "@mui/icons-material/Add";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-// import { BaseURL, token, userId } from "../Contexts/Vars";
+import { token } from "../Constants/Vars";
 // import { Avatar } from "@mui/material";
 
 const blue = {
@@ -83,11 +83,15 @@ function getStyles(name, type, theme) {
 }
 
 export default function AddSubject({ open, setOpen }) {
+  const [anonymousPost, setAnonymousPost] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const [disabled, setDisabled] = React.useState(false);
+
   const handleClose = () => {
     setOpen(false);
+    setLoading(false);
+    setDisabled(false);
   };
-
-  const [anonymousPost, setAnonymousPost] = React.useState(false);
 
   const {
     register,
@@ -99,18 +103,30 @@ export default function AddSubject({ open, setOpen }) {
     data.subject = inputValue;
     data.anonymous = anonymousPost;
     const token = JSON.parse(localStorage.getItem("token"));
+    setDisabled(true);
+    setLoading(true);
     axios
-      .post("http://localhost:3000/api/materials", data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .post(
+        `${import.meta.env.VITE_API_URL}${
+          import.meta.env.VITE_ALL_MATERIALS_PATH
+        }`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         toast.success(res.data.message);
-        window.location.reload();
+        handleClose();
+        setLoading(false);
+        setDisabled(false);
       })
       .catch((err) => {
         toast.error(err.response.data.message);
+        setLoading(false);
+        setDisabled(false);
       });
   };
 
@@ -163,6 +179,14 @@ export default function AddSubject({ open, setOpen }) {
               </Button>
             </Box>
             <Typography variant="h4">Add a new material</Typography>
+            {loading ? (
+              <Stack my={2} direction="row" gap={2} alignItems="center">
+                <CircularProgress />{" "}
+                <Typography variant="h6">Progressing</Typography>
+              </Stack>
+            ) : (
+              <></>
+            )}
             <form onSubmit={handleSubmit(onSubmit)}>
               <Stack mt={3} gap={2}>
                 <Box>
@@ -272,8 +296,14 @@ export default function AddSubject({ open, setOpen }) {
                   </label>
                 </Box>
                 <Box>
-                  <Button type="submit" variant="contained" endIcon={<Add />}>
-                    Add
+                  <Button
+                    size="small"
+                    type="submit"
+                    endIcon={<Add />}
+                    disabled={disabled}
+                    variant="contained"
+                  >
+                    <span>Add</span>
                   </Button>
                 </Box>
               </Stack>

@@ -2,21 +2,16 @@ import { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import "./App.css";
 import Landing from "./Pages/Landing";
-import Login from "./Pages/login";
 import Signup from "./Pages/Signup";
 import Materialmenu from "./Pages/Materialmenu";
 import { AnimatePresence } from "framer-motion";
 import ProtectedAuth from "./Protected Routes/ProtectedAuth";
 import EditMaterial from "./Modals/EditMaterial";
 import ViewAllMaterials from "./Pages/ViewAllMaterials";
+import Login from "./Pages/Login";
 function App() {
   const location = useLocation();
 
-  // const [user, setUser] = useState({});
-  // useEffect(() => {
-  //   setUser(JSON.parse(localStorage.getItem("user")));
-  //   console.log(user);
-  // }, []);
   return (
     <AnimatePresence>
       <Routes location={location} key={location.pathname}>
