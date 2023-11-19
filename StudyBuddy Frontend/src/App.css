@@ -41,7 +41,7 @@ input:focus {
 @media (width <= 450px) {
   #form-content {
     width: 30ch;
-    scale: 0.5;
+    /* scale: 0.5; */
   }
   #form-content h4 {
     font-size: 1.3rem;
