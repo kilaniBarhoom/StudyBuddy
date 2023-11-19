@@ -2,6 +2,7 @@ import { Typography, Box, Stack, Divider, Button } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 export default function Signup() {
   const nav = useNavigate();
@@ -23,7 +24,7 @@ export default function Signup() {
         window.location.reload();
       })
       .catch((err) => {
-        console.log(err);
+        toast.error(err.response.data.message);
       });
   };
 
@@ -84,10 +85,11 @@ export default function Signup() {
                   placeholder="Password"
                   type="password"
                   {...register("password", {
+                    required: "Password should be atleast 8 characters long",
                     minLength: 8,
                   })}
                 />
-                {errors.password && !errors.email && (
+                {errors.password && (
                   <span style={{ color: "red", fontSize: "0.8rem" }}>
                     Password should be atleast 8 characters
                   </span>
