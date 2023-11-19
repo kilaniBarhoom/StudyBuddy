@@ -9,6 +9,7 @@ import {
   Menu,
   MenuItem,
   Avatar,
+  Stack,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -127,21 +128,35 @@ export default function TopNav() {
       onClose={handleMobileMenuClose}
     >
       {signedIn ? (
-        <MenuItem>
-          <IconButton
-            onClick={() => setOpen(true)}
-            size="large"
-            aria-label="cart"
-            color="inherit"
-          >
-            <Badge badgeContent={1} color="error">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <Typography variant="span">Notifications</Typography>
+        <MenuItem
+          onClick={() => {
+            handleMenuClose();
+            localStorage.clear();
+            nav("/");
+            window.location.reload();
+          }}
+        >
+          Log out
         </MenuItem>
       ) : (
-        ""
+        <Box>
+          <MenuItem
+            onClick={() => {
+              nav("/login");
+              handleMenuClose();
+            }}
+          >
+            Login
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              nav("/signup");
+              handleMenuClose();
+            }}
+          >
+            Signup
+          </MenuItem>
+        </Box>
       )}
 
       {/* <MenuItem onClick={handleProfileMenuOpen}>
@@ -169,10 +184,10 @@ export default function TopNav() {
             onClick={() => nav("/")}
           >
             <img
-              src="./src/assets/logo.jpg"
+              src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png"
               width={30}
               alt=""
-              style={{ transform: "rotateY(180deg)" }}
+              style={{ transform: "rotateY(180deg)", marginRight: "5px" }}
             />
             <span style={{ color: "red", fontSize: "1.6rem" }}>S</span>tuddy
             <span style={{ color: "red", fontSize: "1.6rem" }}>B</span>udy
@@ -224,6 +239,7 @@ export default function TopNav() {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
+      <hr />
     </Box>
   );
 }

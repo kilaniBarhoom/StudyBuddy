@@ -21,7 +21,7 @@ export default function Login() {
       .then((res) => {
         localStorage.setItem("user", JSON.stringify(res.data.user));
         localStorage.setItem("token", JSON.stringify(res.data.token));
-        nav(-1);
+        nav("/");
         window.location.reload();
       })
       .catch((err) => {
