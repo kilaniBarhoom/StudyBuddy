@@ -1,6 +1,6 @@
 import User from "../models/user.js";
 import * as statusCodes from '../constants/status.constants.js'
-import ResponseError from "../utils/responseerror.js";
+import ResponseError from "../utils/responseError.js";
 import jwt from 'jsonwebtoken'
 
 // /api/auth/signup
