@@ -1,4 +1,4 @@
-import ResponseError from './responseerror.js';
+import ResponseError from './responseError.js';
 
 
 const handleErrors = (err, req, res, next) => {

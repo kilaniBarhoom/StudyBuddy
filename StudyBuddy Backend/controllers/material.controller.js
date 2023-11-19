@@ -1,6 +1,6 @@
 import Material from "../models/material.js";
 import * as statusCodes from '../constants/status.constants.js'
-import ResponseError from "../utils/responseerror.js";
+import ResponseError from "../utils/responseError.js";
 import APIFeatures from '../utils/apiFeatures.js'
 
 
