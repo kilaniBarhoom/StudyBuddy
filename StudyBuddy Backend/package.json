@@ -6,8 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "SET NODE_ENV=development& nodemon index.js",
-    "prod": "SET NODE_ENV=production& nodemon index.js"
+    "dev": "nodemon index.js",
   },
   "keywords": [],
   "author": "",
