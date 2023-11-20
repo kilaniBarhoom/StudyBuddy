@@ -24,12 +24,16 @@ const ViewAllMaterials = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/materials`)
+      .get(
+        `${import.meta.env.VITE_API_URL}${
+          import.meta.env.VITE_ALL_MATERIALS_PATH
+        }`
+      )
       .then((res) => {
         setData(res.data.materials);
       })
       .catch((err) => {
-        console.log(err);
+        toast.error(err.response.data.message);
       });
   }, []);
 
@@ -73,7 +77,7 @@ const ViewAllMaterials = () => {
         toast.success(res.data.message);
       })
       .catch((err) => {
-        console.log(err);
+        toast.error(err.response.data.message);
       });
   };
 

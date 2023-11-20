@@ -98,7 +98,7 @@ export default function EditMaterial() {
         setMaterial(res.data.material);
       })
       .catch((err) => {
-        console.log(`err ${err}`);
+        toast.error(err.response.data.message);
       });
   }, []);
 
@@ -110,21 +110,25 @@ export default function EditMaterial() {
   const onSubmit = (data) => {
     data.type = type[0];
     data.subject = inputValue;
-    console.log(data);
-    console.log(material);
-    // axios
-    //   .put(`http://localhost:3000/api/materials/${materialId}`, data, {
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   })
-    //   .then((res) => {
-    //     toast.success(res.data.message);
-    //     nav(-1);
-    //   })
-    //   .catch((err) => {
-    //     toast.error(err.response.data.message);
-    //   });
+    axios
+      .put(
+        `${import.meta.env.VITE_API_URL}${
+          import.meta.env.VITE_ALL_MATERIALS_PATH
+        }/${materialId}`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        toast.success(res.data.message);
+        nav(-1);
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message);
+      });
   };
 
   const theme = useTheme();
