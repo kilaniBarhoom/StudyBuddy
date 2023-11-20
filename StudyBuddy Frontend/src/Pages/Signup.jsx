@@ -2,7 +2,7 @@ import { Typography, Box, Stack, Divider, Button } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Signup() {
   const nav = useNavigate();
@@ -40,6 +40,7 @@ export default function Signup() {
         border="solid 2px #000"
         p={3}
       >
+        <Toaster />
         <Stack id="login-container" gap={5}>
           <Box>
             <Typography variant="h4" fontWeight={800} color="#000">

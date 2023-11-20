@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
+  CircularProgress,
   IconButton,
   Rating,
   Stack,
@@ -21,8 +22,10 @@ import CloseIcon from "@mui/icons-material/Close";
 const ViewAllMaterials = () => {
   const nav = useNavigate();
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     axios
       .get(
         `${import.meta.env.VITE_API_URL}${
@@ -31,6 +34,7 @@ const ViewAllMaterials = () => {
       )
       .then((res) => {
         setData(res.data.materials);
+        setLoading(false);
       })
       .catch((err) => {
         toast.error(err.response.data.message);
@@ -186,6 +190,14 @@ const ViewAllMaterials = () => {
             >
               Back
             </Button>
+            {loading ? (
+              <Stack my={2} direction="row" gap={2} alignItems="center">
+                <CircularProgress />{" "}
+                <Typography variant="h6">Fetching Data</Typography>
+              </Stack>
+            ) : (
+              <></>
+            )}
           </Box>
           {openRating ? <Rate /> : ""}
           {data.length ? (
@@ -280,6 +292,8 @@ const ViewAllMaterials = () => {
                 })}
               </tbody>
             </table>
+          ) : loading ? (
+            " "
           ) : (
             <Typography variant="h6">No Materials Yet...</Typography>
           )}

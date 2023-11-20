@@ -217,13 +217,18 @@ export default function TopNav() {
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="menu"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              color="inherit"
-            ></IconButton>
+            {signedIn && user.role == "admin" ? (
+              <IconButton
+                size="large"
+                aria-label="show 17 new notifications"
+                color="inherit"
+                onClick={() => nav("/materials/admin")}
+              >
+                <NotificationsIcon />
+              </IconButton>
+            ) : (
+              ""
+            )}
             <IconButton
               size="large"
               aria-label="show more"

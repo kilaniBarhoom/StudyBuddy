@@ -6,6 +6,7 @@ import {
   Rating,
   Stack,
   Typography,
+  CircularProgress,
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -21,11 +22,13 @@ import CloseIcon from "@mui/icons-material/Close";
 const TypeShower = () => {
   const nav = useNavigate();
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const currentSearchParams = new URLSearchParams(window.location.search);
     const subject = encodeURIComponent(currentSearchParams.get("subject"));
     const type = encodeURIComponent(currentSearchParams.get("type"));
+    setLoading(true);
     axios
       .get(
         `${import.meta.env.VITE_API_URL}${
@@ -34,6 +37,7 @@ const TypeShower = () => {
       )
       .then((res) => {
         setData(res.data.materials);
+        setLoading(false);
       })
       .catch((err) => {
         toast.error(err.response.data.message);
@@ -184,6 +188,14 @@ const TypeShower = () => {
           Back
         </Button>
       </Box>
+      {loading ? (
+        <Stack my={2} direction="row" gap={2} alignItems="center">
+          <CircularProgress />{" "}
+          <Typography variant="h6">Fetching Data</Typography>
+        </Stack>
+      ) : (
+        <></>
+      )}
       {openRating ? <Rate /> : ""}
       {data.length ? (
         <table className="custom-table">
@@ -273,6 +285,8 @@ const TypeShower = () => {
             })}
           </tbody>
         </table>
+      ) : loading ? (
+        ""
       ) : (
         <Typography variant="h6">No Materials Yet...</Typography>
       )}

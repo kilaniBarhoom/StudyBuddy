@@ -5,7 +5,6 @@ import {
   Button,
   Typography,
   Modal,
-  styled,
   Autocomplete,
   TextField,
   Checkbox,
@@ -22,8 +21,6 @@ import Subjects from "../Constants/Data";
 import Add from "@mui/icons-material/Add";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { token } from "../Constants/Vars";
-// import { Avatar } from "@mui/material";
 
 const blue = {
   100: "#DAECFF",
